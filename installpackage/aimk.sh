@@ -19,11 +19,12 @@ case "$1" in
     echo "Starting aimakers"
     # run application you want to start
     if [ ! -f /run/genie-kit.init ]; then
-    	insmod /home/pi/.genie-kit/bin/KT-GenieKit-I2S.ko
-	python /home/pi/.genie-kit/bin/MiC-CX20921-Init.py
-	python /home/pi/.genie-kit/bin/SPK-AD82011-Init.py
-	python /home/pi/.genie-kit/bin/LED_Init.py
+    	insmod /data/data/com.termux/files/home/.genie-kit/bin/KT-GenieKit-I2S.ko
+	python /data/data/com.termux/files/home/.genie-kit/bin/MiC-CX20921-Init.py
+	python /data/data/com.termux/files/home/.genie-kit/bin/SPK-AD82011-Init.py
+	python /data/data/com.termux/files/home/.genie-kit/bin/LED_Init.py
 	touch /run/genie-kit.init
+  # /run -> /mnt/run?
     else
 	echo "Already Started"
     fi 

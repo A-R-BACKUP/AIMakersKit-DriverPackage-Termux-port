@@ -1,5 +1,5 @@
 #!bash
-TMPDIR="/home/pi/Music"
+TMPDIR="/data/data/com.termux/files/home/Music"
 echo "[오디오 기능 점검]"
 echo "> 재생 기능을 점검합니다."
 echo "> 아무키나 누르면 음성을 재생합니다.\c"

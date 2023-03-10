@@ -1,4 +1,5 @@
 #!/bin/bash
+#AIMakersKit-DriverPackage-Termux-port
 
 : <<'DISCLAIMER'
 
@@ -36,8 +37,8 @@ armv6="yes" # whether armv6 processors are supported
 armv7="yes" # whether armv7 processors are supported
 armv8="yes" # whether armv8 processors are supported
 raspbianonly="no" # whether the script is allowed to run on other OSes
-osreleases=( "Raspbian" ) # list os-releases supported
-oswarning=( "Debian" "Kano" "Mate" "PiTop" "Ubuntu" ) # list experimental os-releases
+osreleases=( "Raspbian" ) # list os-s supported
+oswarning=( "Debian" "Kano" "Mate" "PiTop" "Ubuntu" "Android" ) # list experimental os-releases
 osdeny=( "Darwin" "Kali" ) # list os-releases specifically disallowed
 
 FORCE=$1
@@ -53,7 +54,7 @@ INITABCONF=/etc/inittab
 BLACKLIST=/etc/modprobe.d/raspi-blacklist.conf
 LOADMOD=/etc/modules
 DTBODIR=/boot/overlays
-UNZIPDIR=/home/pi/.genie-kit/bin
+UNZIPDIR=/data/data/com.termux/files/home/.genie-kit/bin
 
 # function define
 
@@ -120,15 +121,11 @@ drvinstall() {
 		sudo update-rc.d aimk.sh defaults
 }
 
-packageinstall() {
-	sudo apt-get update
-	sudo apt-get install -y libasound2-dev
-}
 
 sysupdate() {
     if ! $UPDATE_DB; then
         echo "Updating apt indexes..." && progress 3 &
-        sudo apt-get update 1> /dev/null || { warning "Apt failed to update indexes!" && exit 1; }
+        pkg update 1> /dev/null || { warning "Apt failed to update indexes!" && exit 1; }
         echo "Reading package lists..."
         progress 3 && UPDATE_DB=true
     fi
@@ -139,7 +136,7 @@ sysreboot() {
     warning "your computer to reboot to take effect."
     newline
     if prompt "Would you like to reboot now?"; then
-        sync && sleep 5 && sudo reboot
+        sync && sleep 5 && sudo shutdown -r now
     fi
 }
 

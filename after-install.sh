@@ -19,7 +19,7 @@ was written for this script.
 
 DISCLAIMER
 
-UNZIPDIR=/home/pi/.genie-kit/bin
+UNZIPDIR=/data/data/com.termux/files/home/.genie-kit/bin
 
 # function define
 
@@ -78,13 +78,13 @@ sudocheck() {
 
 afterinstall() {
     echo "Configuring sound output"
-    if [ -e /home/pi/.asoundrc ]; then
-        if [ -e /home/pi/.asoundrc.old ]; then
-        sudo rm -f /home/pi/.asoundrc
+    if [ -e /data/data/com.termux/files/home/.asoundrc ]; then
+        if [ -e /data/data/com.termux/files/home/.asoundrc.old ]; then
+        sudo rm -f /data/data/com.termux/files/home/.asoundrc
         fi
-        sudo mv /home/pi/.asoundrc /home/pi/.asoundrc.old
+        sudo mv /data/data/com.termux/files/home/.asoundrc /data/data/com.termux/files/home/.asoundrc.old
     fi
-    sudo cp $UNZIPDIR/asoundrc /home/pi/.asoundrc
+    sudo cp $UNZIPDIR/asoundrc /data/data/com.termux/files/home/.asoundrc
     aplay $UNZIPDIR/sample_sound.wav
     amixer scontrols
     amixer set 'PCM' 80%
@@ -96,7 +96,7 @@ sysreboot() {
   warning "your computer to reboot to take effect."
   newline
   if prompt "Would you like to reboot now?"; then
-      sync && sleep 5 && sudo reboot
+      sync && sleep 5 && sudo shutdown -r now
   fi
 }
 
