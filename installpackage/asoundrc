@@ -1,0 +1,30 @@
+pcm.!default  {
+ type plug
+ slave.pcm "softvol"  #added softvol as slave 
+}
+
+ctl.!default {
+ type hw card 0
+}
+
+ctl.softvol {  #added ctl for softvol
+    type hw
+    card 0
+}
+
+pcm.softvol {
+    type            softvol
+    slave {
+        pcm         "hw:0"      #redirect the output to dmix (instead of "hw:0,0")
+    }
+    control {
+        name        "PCM"       #override the PCM slider to set the softvol volume level globally
+        card        0
+    }
+    min_dB -10.0
+    max_dB 15.0
+}
+
+defaults.pcm.card 0
+defaults.pcm.device 0
+defaults.ctl.card 0
